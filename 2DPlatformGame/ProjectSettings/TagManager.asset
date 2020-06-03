@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Leo
+  - Coin
   layers:
   - Default
   - TransparentFX
