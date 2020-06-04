@@ -56,11 +56,16 @@ public class CharacterController2D : MonoBehaviour
             if (colliders[i].gameObject != gameObject)
             {
                 m_Grounded = true;
-                if (!wasGrounded)
+
+
+                if (wasGrounded)
+                {
                     OnLandEvent.Invoke();
+                }
             }
         }
     }
+
 
 
     public void Move(float move, bool crouch, bool jump)
@@ -132,6 +137,8 @@ public class CharacterController2D : MonoBehaviour
             // Add a vertical force to the player.
             m_Grounded = false;
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            print("jump");
+
         }
     }
 

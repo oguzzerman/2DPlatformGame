@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 1030552560}
   - component: {fileID: 1030552559}
   - component: {fileID: 1030552558}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -500,7 +500,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 11.010468, y: -3.161408}
+  m_Offset: {x: 11.010468, y: -2.9990458}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -511,7 +511,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 42.56073, y: 2.233921}
+  m_Size: {x: 42.56073, y: 2.5586452}
   m_EdgeRadius: 0
 --- !u!483693784 &1030552559
 TilemapRenderer:
@@ -919,9 +919,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: -0.10429239}
+  m_Offset: {x: -0.009999997, y: -0.100132704}
   serializedVersion: 2
-  m_Radius: 0.06
+  m_Radius: 0.055840313
 --- !u!61 &1300685171
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -982,6 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1300685176}
+  animator: {fileID: 1300685177}
   HorizontalSpeed: 40
 --- !u!212 &1300685174
 SpriteRenderer:
@@ -1041,7 +1042,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300685169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.83, y: -0.78, z: 0}
+  m_LocalPosition: {x: -6.825, y: -0.614, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 1004786306}
@@ -1061,19 +1062,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4781876821ac594a8d0653e18d2e1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 1000
+  m_JumpForce: 600
   m_CrouchSpeed: 0.5
   m_MovementSmoothing: 0.05
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 256
   m_GroundCheck: {fileID: 1004786306}
   m_CeilingCheck: {fileID: 1198994272}
   m_CrouchDisableCollider: {fileID: 0}
   OnLandEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1300685173}
+        m_MethodName: OnLanding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnCrouchEvent:
     m_PersistentCalls:
       m_Calls: []
