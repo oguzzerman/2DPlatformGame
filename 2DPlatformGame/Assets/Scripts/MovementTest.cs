@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MovementTest : MonoBehaviour
 {
-    public float speed;
-    private bool _LeftArrowDown;
-    private bool _RightArrowDown;
+    public CharacterController2D controller;
+    public float HorizontalSpeed = 40f;
+    private float _HorizontalMove;
+    private bool _Jump = false;
+    private bool _Crouch = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,35 +19,28 @@ public class MovementTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        _HorizontalMove = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetButtonDown("Jump"))
         {
-            _LeftArrowDown = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            _LeftArrowDown = false;
+            _Jump = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetButton("Crouch"))
         {
-            _RightArrowDown = true;
+            _Crouch = true;
         }
-        else if (Input.GetKeyUp(KeyCode.RightArrow))
+        else// if (Input.GetButtonUp("Crouch"))
         {
-            _RightArrowDown = false;
+            _Crouch = false;
         }
     }
    
 
     void FixedUpdate()
     {
-        if (_LeftArrowDown)
-        {
-            transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y);
-        }
-        else if (_RightArrowDown)
-        {
-            transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y);
-        }
+        controller.Move(_HorizontalMove* Time.fixedDeltaTime * HorizontalSpeed, _Crouch, _Jump);
+        _Jump = false;
+        print(_Crouch);
     }
 }
