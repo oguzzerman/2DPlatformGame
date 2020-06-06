@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowMainCharacter : MonoBehaviour
 {
     public GameObject MainCharacter;
-
+    public float Offset;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +16,6 @@ public class FollowMainCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = new Vector3 (MainCharacter.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
+        gameObject.transform.position = new Vector3 (MainCharacter.transform.position.x + Offset, gameObject.transform.position.y, gameObject.transform.position.z);
     }
 }
