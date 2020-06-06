@@ -15,24 +15,20 @@ public class EnemyGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(ExecuteAfterTime(2));
+        StartCoroutine(GenerateEnemyAfterTime(2));
     }
 
 
-    IEnumerator ExecuteAfterTime(float time)
+    IEnumerator GenerateEnemyAfterTime(float time)
     {
-        print("girdi");
         if (isCoroutineExecuting)
         {
-            print("break etti");
             yield break;
         }
 
         isCoroutineExecuting = true;
-        print("break etmedi");
 
         yield return new WaitForSeconds(time);
-        print("çağırdı");
 
         GenerateRandomEnemies();
 
@@ -42,9 +38,8 @@ public class EnemyGenerator : MonoBehaviour
 
     private void GenerateRandomEnemies()
     {
-        var rnd = Random.Range(0, Enemies.Count);
-        print(rnd);
-        GameObject enemy = Instantiate(Enemies[rnd]);
+        var index = Random.Range(0, Enemies.Count);
+        GameObject enemy = Instantiate(Enemies[index]);
         enemy.SetActive(true);
         enemy.transform.position = new Vector3(gameObject.transform.position.x, enemy.transform.position.y, enemy.transform.position.z);
     }
