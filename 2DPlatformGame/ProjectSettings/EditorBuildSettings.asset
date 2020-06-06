@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ChromeOffline.unity
+    guid: c428e8b68d6552f4598b0f30f1b80d39
   m_configObjects: {}

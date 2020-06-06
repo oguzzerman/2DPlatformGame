@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9098828246167393160}
   - component: {fileID: 9098828246167393163}
   - component: {fileID: 8258466988840466984}
+  - component: {fileID: -8188059279515845193}
   m_Layer: 0
   m_Name: Eagle
   m_TagString: Enemy
@@ -154,3 +155,15 @@ CircleCollider2D:
   m_Offset: {x: -0.034466356, y: -0.038296103}
   serializedVersion: 2
   m_Radius: 0.12840804
+--- !u!114 &-8188059279515845193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9098828246167393164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbf780f43a727c4ab144b8c74ca0df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
