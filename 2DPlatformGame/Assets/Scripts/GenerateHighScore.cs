@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GenerateScore : MonoBehaviour
+public class GenerateHighScore : MonoBehaviour
 {
     public GameObject MainCharacter;
-    private Text _Score;
+    private Text _HighScore;
     private HighScoreContainer highScoreCont;
-
     // Start is called before the first frame update
     void Start()
     {
-        _Score = GetComponent<Text>();
+        _HighScore = GetComponent<Text>();
         highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
 
     }
@@ -20,12 +19,6 @@ public class GenerateScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float score = MainCharacter.transform.position.x;
-        _Score.text = "Score: " + score.ToString("F1");
-
-        if (score > highScoreCont.HighScore)
-        {
-            highScoreCont.HighScore = score;
-        }
+        _HighScore.text = "High Score: " + highScoreCont.HighScore.ToString("F1");
     }
 }

@@ -9,10 +9,14 @@ public class MovementAlwaysRun : MonoBehaviour
     public float HorizontalSpeed = 40f;
     private bool _Jump = false;
     private bool _Crouch = false;
+    private BoxCollider2D boxCollider;
+    private float ColliderSizeY;
 
     // Start is called before the first frame update
     void Start()
     {
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        ColliderSizeY = boxCollider.size.y;
 
     }
 
@@ -26,17 +30,16 @@ public class MovementAlwaysRun : MonoBehaviour
             animator.SetBool("Jumping", true);
         }
 
-
         if (Input.GetButton("Crouch"))
         {
             _Crouch = true;
-
+            boxCollider.size = new Vector2(boxCollider.size.x, ColliderSizeY / 2);
         }
         else// if (Input.GetButtonUp("Crouch"))
         {
             _Crouch = false;
+            boxCollider.size = new Vector2(boxCollider.size.x, ColliderSizeY);
         }
-
 
         animator.SetBool("Crouching", _Crouch);
     }
