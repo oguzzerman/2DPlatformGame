@@ -1867,6 +1867,11 @@ PrefabInstance:
     - target: {fileID: 1991540393647349868, guid: 0884d9853277b8a42a10e87b2e730064,
         type: 3}
       propertyPath: HorizontalSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911353582039767087, guid: 0884d9853277b8a42a10e87b2e730064,
+        type: 3}
+      propertyPath: HighScore
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2055,7 +2060,7 @@ PrefabInstance:
     - target: {fileID: 9098828246167393164, guid: 603df2b4e42873c4c902e5e9bca33d29,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9098828246167393164, guid: 603df2b4e42873c4c902e5e9bca33d29,
         type: 3}
