@@ -43,7 +43,6 @@ public class MovementAlwaysRun : MonoBehaviour
 
     public void OnLanding()
     {
-        print("landed");
         animator.SetBool("Jumping", false);
     }
 
