@@ -55,4 +55,12 @@ public class MovementAlwaysRun : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(HorizontalSpeed));
         _Jump = false;
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+
+
+        if (other.gameObject.tag == "Enemy")
+            print("game over");
+    }
 }
