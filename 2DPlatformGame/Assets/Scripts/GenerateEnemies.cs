@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGenerator : MonoBehaviour
+public class GenerateEnemies : MonoBehaviour
 {
     public List<GameObject> Enemies;
-    private bool isCoroutineExecuting = false;
+
+    public bool IsCoroutineExecuting = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,24 +16,24 @@ public class EnemyGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(GenerateEnemyAfterTime(2));
+        StartCoroutine(GenerateEnemyAfterTime(1));
     }
 
 
     IEnumerator GenerateEnemyAfterTime(float time)
     {
-        if (isCoroutineExecuting)
+        if (IsCoroutineExecuting)
         {
             yield break;
         }
 
-        isCoroutineExecuting = true;
+        IsCoroutineExecuting = true;
 
         yield return new WaitForSeconds(time);
 
         GenerateRandomEnemies();
 
-        isCoroutineExecuting = false;
+        IsCoroutineExecuting = false;
     }
 
 
@@ -40,6 +41,7 @@ public class EnemyGenerator : MonoBehaviour
     {
         var index = Random.Range(0, Enemies.Count);
         GameObject enemy = Instantiate(Enemies[index]);
+
         enemy.SetActive(true);
         enemy.transform.position = new Vector3(gameObject.transform.position.x, enemy.transform.position.y, enemy.transform.position.z);
     }

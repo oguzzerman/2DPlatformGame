@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MovementAlwaysRun : MonoBehaviour
 {
@@ -12,12 +13,19 @@ public class MovementAlwaysRun : MonoBehaviour
     private BoxCollider2D boxCollider;
     private float ColliderSizeY;
 
+    public UnityEvent GameOverEvent;
+
+    private void Awake()
+    {
+        if (GameOverEvent == null)
+            GameOverEvent = new UnityEvent();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         ColliderSizeY = boxCollider.size.y;
-
     }
 
     // Update is called once per frame
@@ -61,6 +69,8 @@ public class MovementAlwaysRun : MonoBehaviour
 
 
         if (other.gameObject.tag == "Enemy")
-            print("game over");
+        {
+            GameOverEvent.Invoke();
+        }
     }
 }

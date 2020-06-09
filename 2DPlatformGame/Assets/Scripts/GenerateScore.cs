@@ -25,6 +25,7 @@ public class GenerateScore : MonoBehaviour
 
         if (score > highScoreCont.HighScore)
         {
+            highScoreCont.NewHighScore = true;
             highScoreCont.HighScore = score;
         }
     }
