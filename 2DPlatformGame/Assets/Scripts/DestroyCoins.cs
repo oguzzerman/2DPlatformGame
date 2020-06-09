@@ -18,8 +18,6 @@ public class DestroyCoins : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        print("Test");
-
         if (other.gameObject.tag == "Leo")
             Destroy(gameObject);
     }

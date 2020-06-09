@@ -73,7 +73,6 @@ public class MovementAlwaysRun : MonoBehaviour
 
         if (other.gameObject.tag == "Enemy")
         {
-            print(other.gameObject.name);
             GameOverEvent.Invoke();
         }
     }

@@ -12,6 +12,7 @@ public class SplashDialog : MonoBehaviour
     public GameObject MainCharacter;
     public List<GameObject> Backgrounds;
     private bool _IsGameStarted;
+    private bool _IsFirstTime;
 
     //private EnemyGeneratorScript enemyGeneratorScript;
 
@@ -21,6 +22,7 @@ public class SplashDialog : MonoBehaviour
         EnemyGenerator.SetActive(false);
         Score.SetActive(false);
         _IsGameStarted = false;
+        _IsFirstTime = true;
     }
 
 
@@ -30,9 +32,15 @@ public class SplashDialog : MonoBehaviour
 
         if (!_IsGameStarted && Input.GetKeyDown(KeyCode.Return))
         {
-
-            Text text = gameObject.GetComponent<Text>();
-            text.text = "";
+            if (_IsFirstTime)
+            {
+                StartCoroutine(ShowMessage("Press Space to Jump." + Environment.NewLine + "Press Down Arrow to Crouch.", 3));
+            }
+            else
+            {
+                Text text = gameObject.GetComponent<Text>();
+                text.text = "";
+            }
 
             EnemyGenerator.SetActive(true);
             EnemyGenerator.GetComponent<GenerateEnemies>().IsCoroutineExecuting = false;
@@ -40,11 +48,12 @@ public class SplashDialog : MonoBehaviour
             Score.SetActive(true);
             _IsGameStarted = true;
             MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
-            movement.HorizontalSpeed = 20f;
+            movement.HorizontalSpeed = 30f;
             var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
             highScoreCont.NewHighScore = false;
             highScoreCont.StartPosition = MainCharacter.transform.position.x;
 
+            _IsFirstTime = false;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -61,15 +70,16 @@ public class SplashDialog : MonoBehaviour
         MainCharacter.GetComponent<Rigidbody2D>().velocity = new Vector2();
 
         var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
+        Text text = gameObject.GetComponent<Text>();
+
+        text.enabled = true;
 
         if (highScoreCont.NewHighScore)
         {
-            Text text = gameObject.GetComponent<Text>();
-            text.text = "Game Over!"  + Environment.NewLine + "Congratulations! You beat the high score!" + Environment.NewLine + "Press Enter to Start!";
+            text.text = "Game Over!" + Environment.NewLine + "Congratulations! You beat the high score!" + Environment.NewLine + "Press Enter to Start!";
         }
         else
         {
-            Text text = gameObject.GetComponent<Text>();
             text.text = "Game Over!" + Environment.NewLine + "Press Enter to Start!";
         }
 
@@ -89,9 +99,6 @@ public class SplashDialog : MonoBehaviour
 
         _IsGameStarted = false;
         
-
-        print(_IsGameStarted);
-        print(Input.GetButton("Jump"));
     }
 
     private void ResetGameLayout()
@@ -106,5 +113,14 @@ public class SplashDialog : MonoBehaviour
 
         rlc = MainCharacter.GetComponent<ResetLayoutController>();
         rlc.ResetLayout();
+    }
+
+    IEnumerator ShowMessage(string message, float delay)
+    {
+        Text text = gameObject.GetComponent<Text>();
+        text.text = message;
+        text.enabled = true;
+        yield return new WaitForSeconds(delay);
+        text.enabled = false;
     }
 }
