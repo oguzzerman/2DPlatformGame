@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2992665474984821625}
   - component: {fileID: 2992665474984821626}
   - component: {fileID: 2992665474984821627}
-  - component: {fileID: 1867074753139068135}
   m_Layer: 0
   m_Name: Opossum
   m_TagString: Untagged
@@ -182,15 +181,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1867074753139068135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992665474984821631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cbf780f43a727c4ab144b8c74ca0df1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

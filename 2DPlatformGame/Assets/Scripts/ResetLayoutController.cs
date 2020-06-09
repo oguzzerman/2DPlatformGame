@@ -19,12 +19,12 @@ public class ResetLayoutController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ResetLayout()
     {
-        gameObject.transform.position = new Vector3(DefaultXPosition, DefaultYPosition, DefaultZPosition);
+        //gameObject.transform.position = new Vector3(DefaultXPosition, DefaultYPosition, DefaultZPosition);
     }
 
 }

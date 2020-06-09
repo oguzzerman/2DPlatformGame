@@ -20,13 +20,13 @@ public class GenerateScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float score = MainCharacter.transform.position.x;
-        _Score.text = "Score: " + score.ToString("F1");
+        highScoreCont.Score = MainCharacter.transform.position.x - highScoreCont.StartPosition;
+        _Score.text = "Score: " + highScoreCont.Score.ToString("F2");
 
-        if (score > highScoreCont.HighScore)
+        if (highScoreCont.Score > highScoreCont.HighScore)
         {
             highScoreCont.NewHighScore = true;
-            highScoreCont.HighScore = score;
+            highScoreCont.HighScore = highScoreCont.Score;
         }
     }
 }

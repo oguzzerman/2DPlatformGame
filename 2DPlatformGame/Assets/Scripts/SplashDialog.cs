@@ -27,8 +27,10 @@ public class SplashDialog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_IsGameStarted && Input.GetButton("Jump"))
+
+        if (!_IsGameStarted && Input.GetKeyDown(KeyCode.Return))
         {
+
             Text text = gameObject.GetComponent<Text>();
             text.text = "";
 
@@ -41,8 +43,9 @@ public class SplashDialog : MonoBehaviour
             movement.HorizontalSpeed = 20f;
             var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
             highScoreCont.NewHighScore = false;
-        }
+            highScoreCont.StartPosition = MainCharacter.transform.position.x;
 
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -52,21 +55,22 @@ public class SplashDialog : MonoBehaviour
 
     public void ShowGameOverMessage()
     {
-        float score = MainCharacter.transform.position.x;
-        var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
 
-        print(score);
-        print(highScoreCont.HighScore);
+        MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
+        movement.HorizontalSpeed = 0f;
+        MainCharacter.GetComponent<Rigidbody2D>().velocity = new Vector2();
+
+        var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
 
         if (highScoreCont.NewHighScore)
         {
             Text text = gameObject.GetComponent<Text>();
-            text.text = "Game Over!"  + Environment.NewLine + "Congratulations! You beat the high score!" + Environment.NewLine + "Your Score is: " + score.ToString("F1") + Environment.NewLine + "Press space to start!";
+            text.text = "Game Over!"  + Environment.NewLine + "Congratulations! You beat the high score!" + Environment.NewLine + "Press Enter to Start!";
         }
         else
         {
             Text text = gameObject.GetComponent<Text>();
-            text.text = "Game Over!" + Environment.NewLine + "Your Score is: " + score.ToString("F1") + Environment.NewLine + "Press space to start!";
+            text.text = "Game Over!" + Environment.NewLine + "Press Enter to Start!";
         }
 
         // Stop new enemy generation
@@ -83,12 +87,11 @@ public class SplashDialog : MonoBehaviour
             }
         }
 
-
         _IsGameStarted = false;
         
 
-        MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
-        movement.HorizontalSpeed = 0f;
+        print(_IsGameStarted);
+        print(Input.GetButton("Jump"));
     }
 
     private void ResetGameLayout()

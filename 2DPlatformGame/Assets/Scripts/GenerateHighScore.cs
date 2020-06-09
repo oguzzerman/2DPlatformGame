@@ -19,6 +19,6 @@ public class GenerateHighScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _HighScore.text = "High Score: " + highScoreCont.HighScore.ToString("F1");
+        _HighScore.text = "High Score: " + highScoreCont.HighScore.ToString("F2");
     }
 }

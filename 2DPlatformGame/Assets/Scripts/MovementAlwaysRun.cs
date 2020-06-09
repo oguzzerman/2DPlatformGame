@@ -8,6 +8,8 @@ public class MovementAlwaysRun : MonoBehaviour
     public CharacterController2D controller;
     public Animator animator;
     public float HorizontalSpeed = 40f;
+    public bool Jumping = false;
+
     private bool _Jump = false;
     private bool _Crouch = false;
     private BoxCollider2D boxCollider;
@@ -35,6 +37,7 @@ public class MovementAlwaysRun : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             _Jump = true;
+            Jumping = true;
             animator.SetBool("Jumping", true);
         }
 
@@ -54,6 +57,7 @@ public class MovementAlwaysRun : MonoBehaviour
 
     public void OnLanding()
     {
+        Jumping = false;
         animator.SetBool("Jumping", false);
     }
 
@@ -67,9 +71,9 @@ public class MovementAlwaysRun : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
 
-
         if (other.gameObject.tag == "Enemy")
         {
+            print(other.gameObject.name);
             GameOverEvent.Invoke();
         }
     }
