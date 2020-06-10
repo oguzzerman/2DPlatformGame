@@ -4,7 +4,8 @@
 [✔]Başlamak için enter e basın falan gibi bi yazı ekleyelim öyle başlayalım
 [✔]Karaktere çarpan olunca game over yazısı çıksın
 [✔]Game over yazısında tekrar oynamak için enter e basın desin
-[]Oyun başlayınca 1-2 saniye süresince zıplamak için space e çökmek için alt oka basın
+[✔]Oyun başlayınca 1-2 saniye süresince zıplamak için space e çökmek için alt oka basın
+[]Death animation
 []audio eklensin ya da müzik
 	endless runner müziği :)
 []Refactoring

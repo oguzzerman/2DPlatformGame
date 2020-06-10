@@ -36,6 +36,7 @@ public class MovementAlwaysRun : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            SoundManager.PlaySound("Jump");
             _Jump = true;
             Jumping = true;
             animator.SetBool("Jumping", true);

@@ -13,7 +13,7 @@ public class SplashDialog : MonoBehaviour
     public List<GameObject> Backgrounds;
     private bool _IsGameStarted;
     private bool _IsFirstTime;
-
+    private float _Speed;
     //private EnemyGeneratorScript enemyGeneratorScript;
 
     // Start is called before the first frame update
@@ -30,6 +30,14 @@ public class SplashDialog : MonoBehaviour
     void Update()
     {
 
+        if (_IsGameStarted)
+        {
+            var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
+            _Speed = 20 + Math.Min(highScoreCont.Score / 20f, 10f);
+            MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
+            movement.HorizontalSpeed = _Speed;
+        }
+
         if (!_IsGameStarted && Input.GetKeyDown(KeyCode.Return))
         {
             if (_IsFirstTime)
@@ -41,6 +49,7 @@ public class SplashDialog : MonoBehaviour
                 Text text = gameObject.GetComponent<Text>();
                 text.text = "";
             }
+            _Speed = 20f;
 
             EnemyGenerator.SetActive(true);
             EnemyGenerator.GetComponent<GenerateEnemies>().IsCoroutineExecuting = false;
@@ -48,23 +57,18 @@ public class SplashDialog : MonoBehaviour
             Score.SetActive(true);
             _IsGameStarted = true;
             MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
-            movement.HorizontalSpeed = 30f;
+            movement.HorizontalSpeed = _Speed;
             var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
             highScoreCont.NewHighScore = false;
             highScoreCont.StartPosition = MainCharacter.transform.position.x;
 
             _IsFirstTime = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ResetGameLayout();
-        }
     }
 
     public void ShowGameOverMessage()
     {
-
+        SoundManager.PlaySound("GameOver");
         MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
         movement.HorizontalSpeed = 0f;
         MainCharacter.GetComponent<Rigidbody2D>().velocity = new Vector2();
@@ -101,19 +105,6 @@ public class SplashDialog : MonoBehaviour
         
     }
 
-    private void ResetGameLayout()
-    {
-        ResetLayoutController rlc;
-
-        for (int i = 0; i < Backgrounds.Count; i++)
-        {
-            rlc = Backgrounds[i].GetComponent<ResetLayoutController>();
-            rlc.ResetLayout();
-        }
-
-        rlc = MainCharacter.GetComponent<ResetLayoutController>();
-        rlc.ResetLayout();
-    }
 
     IEnumerator ShowMessage(string message, float delay)
     {
