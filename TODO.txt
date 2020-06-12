@@ -6,8 +6,8 @@
 [✔]Game over yazısında tekrar oynamak için enter e basın desin
 [✔]Oyun başlayınca 1-2 saniye süresince zıplamak için space e çökmek için alt oka basın
 []Death animation
-[]audio eklensin ya da müzik
-	endless runner müziği :)
+[✔]audio eklensin ya da müzik
+	[✔]endless runner müziği :)
 []Refactoring
 	[]Naming convention for unity
 []Deploy for android

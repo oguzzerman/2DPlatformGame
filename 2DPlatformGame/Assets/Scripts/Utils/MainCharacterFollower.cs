@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowMainCharacter : MonoBehaviour
+public class MainCharacterFollower : MonoBehaviour
 {
     public GameObject MainCharacter;
     public float Offset;
@@ -16,6 +16,11 @@ public class FollowMainCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = new Vector3 (MainCharacter.transform.position.x + Offset, gameObject.transform.position.y, gameObject.transform.position.z);
+        FollowMainCharacter();
+    }
+
+    private void FollowMainCharacter()
+    {
+        gameObject.transform.position = new Vector3(MainCharacter.transform.position.x + Offset, gameObject.transform.position.y, gameObject.transform.position.z);
     }
 }

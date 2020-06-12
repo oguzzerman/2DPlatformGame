@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GenerateHighScore : MonoBehaviour
+public class HighScoreController : MonoBehaviour
 {
-    public GameObject MainCharacter;
     private Text _HighScore;
-    private HighScoreContainer highScoreCont;
     // Start is called before the first frame update
     void Start()
     {
         _HighScore = GetComponent<Text>();
-        highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        _HighScore.text = "High Score: " + highScoreCont.HighScore.ToString("F2");
+    }
+
+    public void UpdateHighScore(float HighScore)
+    {
+        _HighScore.text = "High Score: " + HighScore.ToString("F2");
     }
 }

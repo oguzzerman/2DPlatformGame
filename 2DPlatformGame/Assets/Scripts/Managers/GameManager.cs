@@ -4,22 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SplashDialog : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
 
-    public GameObject EnemyGenerator;
+    public GameObject EnemyGeneratorObject; // Burayı yeniden isimlendirebiliriz
+    public GameObject ScoreManagerObject; // Burayı yeniden isimlendirebiliriz
     public GameObject Score;
+    public GameObject GameDialog;
     public GameObject MainCharacter;
     public List<GameObject> Backgrounds;
     private bool _IsGameStarted;
     private bool _IsFirstTime;
     private float _Speed;
+
+    private ScoreManager _ScoreManager;
+
     //private EnemyGeneratorScript enemyGeneratorScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        EnemyGenerator.SetActive(false);
+        _ScoreManager = ScoreManagerObject.GetComponent<ScoreManager>();
+
+        EnemyGeneratorObject.SetActive(false);
         Score.SetActive(false);
         _IsGameStarted = false;
         _IsFirstTime = true;
@@ -32,9 +39,8 @@ public class SplashDialog : MonoBehaviour
 
         if (_IsGameStarted)
         {
-            var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
-            _Speed = 20 + Math.Min(highScoreCont.Score / 20f, 10f);
-            MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
+            _Speed = 20 + Math.Min(_ScoreManager.GameScore / 20f, 10f);
+            AlwaysRun movement = MainCharacter.GetComponent<AlwaysRun>();
             movement.HorizontalSpeed = _Speed;
         }
 
@@ -46,39 +52,37 @@ public class SplashDialog : MonoBehaviour
             }
             else
             {
-                Text text = gameObject.GetComponent<Text>();
+                Text text = GameDialog.GetComponent<Text>();
                 text.text = "";
             }
             _Speed = 20f;
 
-            EnemyGenerator.SetActive(true);
-            EnemyGenerator.GetComponent<GenerateEnemies>().IsCoroutineExecuting = false;
+            EnemyGeneratorObject.SetActive(true);
+            EnemyGeneratorObject.GetComponent<EnemyGenerator>().IsCoroutineExecuting = false;
 
             Score.SetActive(true);
             _IsGameStarted = true;
-            MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
+            AlwaysRun movement = MainCharacter.GetComponent<AlwaysRun>();
             movement.HorizontalSpeed = _Speed;
-            var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
-            highScoreCont.NewHighScore = false;
-            highScoreCont.StartPosition = MainCharacter.transform.position.x;
+            _ScoreManager.ResetGameStats();
+            _ScoreManager.StartPosition = MainCharacter.transform.position.x;
 
             _IsFirstTime = false;
         }
     }
 
-    public void ShowGameOverMessage()
+    public void FinishGame()
     {
         SoundManager.PlaySound("GameOver");
-        MovementAlwaysRun movement = MainCharacter.GetComponent<MovementAlwaysRun>();
+        AlwaysRun movement = MainCharacter.GetComponent<AlwaysRun>();
         movement.HorizontalSpeed = 0f;
         MainCharacter.GetComponent<Rigidbody2D>().velocity = new Vector2();
 
-        var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
-        Text text = gameObject.GetComponent<Text>();
+        Text text = GameDialog.GetComponent<Text>();
 
         text.enabled = true;
 
-        if (highScoreCont.NewHighScore)
+        if (_ScoreManager.NewHighScore)
         {
             text.text = "Game Over!" + Environment.NewLine + "Congratulations! You beat the high score!" + Environment.NewLine + "Press Enter to Start!";
         }
@@ -88,7 +92,7 @@ public class SplashDialog : MonoBehaviour
         }
 
         // Stop new enemy generation
-        EnemyGenerator.SetActive(false);
+        EnemyGeneratorObject.SetActive(false);
 
         // Destroy all active enemies
         var gameObjects = GameObject.FindGameObjectsWithTag("Enemy");
@@ -102,13 +106,11 @@ public class SplashDialog : MonoBehaviour
         }
 
         _IsGameStarted = false;
-        
     }
-
 
     IEnumerator ShowMessage(string message, float delay)
     {
-        Text text = gameObject.GetComponent<Text>();
+        Text text = GameDialog.GetComponent<Text>();
         text.text = message;
         text.enabled = true;
         yield return new WaitForSeconds(delay);

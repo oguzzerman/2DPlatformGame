@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MovementAlwaysRun : MonoBehaviour
+public class AlwaysRun : MonoBehaviour
 {
     public CharacterController2D controller;
     public Animator animator;
@@ -42,7 +42,7 @@ public class MovementAlwaysRun : MonoBehaviour
             animator.SetBool("Jumping", true);
         }
 
-        if (Input.GetButton("Crouch"))
+        if (Input.GetButtonDown("Crouch"))
         {
             _Crouch = true;
             boxCollider.size = new Vector2(boxCollider.size.x, ColliderSizeY / 2);
