@@ -32,11 +32,6 @@ public class EnemyGenerator : MonoBehaviour
 
     private float DetermineGenerationFrequency()
     {
-        //float time = 2;
-
-        //var highScoreCont = MainCharacter.GetComponent<HighScoreContainer>();
-        //time = 2 - Math.Min(highScoreCont.Score / 200f, 1.5f); 
-
         float time = Random.Range(1f, 2.5f);
         return time;
     }
@@ -68,7 +63,7 @@ public class EnemyGenerator : MonoBehaviour
 
         if (index == 0)
         {
-            if (_ScoreManager.GameScore < 10)
+            if (_ScoreManager.GameScore < 150)
             {
                 enemy = Instantiate(HighEagle);
                 enemyMove = enemy.GetComponent<EnemyMove>();

@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    public GameObject EnemyGeneratorObject; // Burayı yeniden isimlendirebiliriz
-    public GameObject ScoreManagerObject; // Burayı yeniden isimlendirebiliriz
+    public GameObject EnemyGeneratorObject;
+    public GameObject ScoreManagerObject;
     public GameObject Score;
     public GameObject GameDialog;
     public GameObject MainCharacter;
@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private float _Speed;
 
     private ScoreManager _ScoreManager;
+    public Animator _AnimatorLeo;
+    private bool IsCoroutineExecuting = false;
 
     //private EnemyGeneratorScript enemyGeneratorScript;
 
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _ScoreManager = ScoreManagerObject.GetComponent<ScoreManager>();
-
+        _AnimatorLeo = MainCharacter.GetComponent<Animator>();
         EnemyGeneratorObject.SetActive(false);
         Score.SetActive(false);
         _IsGameStarted = false;
@@ -39,8 +41,8 @@ public class GameManager : MonoBehaviour
 
         if (_IsGameStarted)
         {
-            _Speed = 20 + Math.Min(_ScoreManager.GameScore / 20f, 10f);
-            AlwaysRun movement = MainCharacter.GetComponent<AlwaysRun>();
+            _Speed = 200 + Math.Min(_ScoreManager.GameScore / 20f, 100f);
+            CharacterController movement = MainCharacter.GetComponent<CharacterController>();
             movement.HorizontalSpeed = _Speed;
         }
 
@@ -55,14 +57,14 @@ public class GameManager : MonoBehaviour
                 Text text = GameDialog.GetComponent<Text>();
                 text.text = "";
             }
-            _Speed = 20f;
+            _Speed = 200f;
 
             EnemyGeneratorObject.SetActive(true);
             EnemyGeneratorObject.GetComponent<EnemyGenerator>().IsCoroutineExecuting = false;
 
             Score.SetActive(true);
             _IsGameStarted = true;
-            AlwaysRun movement = MainCharacter.GetComponent<AlwaysRun>();
+            CharacterController movement = MainCharacter.GetComponent<CharacterController>();
             movement.HorizontalSpeed = _Speed;
             _ScoreManager.ResetGameStats();
             _ScoreManager.StartPosition = MainCharacter.transform.position.x;
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour
     public void FinishGame()
     {
         SoundManager.PlaySound("GameOver");
-        AlwaysRun movement = MainCharacter.GetComponent<AlwaysRun>();
+        CharacterController movement = MainCharacter.GetComponent<CharacterController>();
         movement.HorizontalSpeed = 0f;
         MainCharacter.GetComponent<Rigidbody2D>().velocity = new Vector2();
 
@@ -106,6 +108,26 @@ public class GameManager : MonoBehaviour
         }
 
         _IsGameStarted = false;
+
+        _AnimatorLeo.SetBool("GameOver", true);
+        StartCoroutine(EndGameOverAnimation(2f));
+
+    }
+
+    IEnumerator EndGameOverAnimation(float time)
+    {
+        if (IsCoroutineExecuting)
+        {
+            yield break;
+        }
+
+        IsCoroutineExecuting = true;
+
+        yield return new WaitForSeconds(time);
+
+        _AnimatorLeo.SetBool("GameOver", false);
+
+        IsCoroutineExecuting = false;
     }
 
     IEnumerator ShowMessage(string message, float delay)

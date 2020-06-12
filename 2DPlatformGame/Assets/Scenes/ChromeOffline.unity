@@ -491,6 +491,7 @@ MonoBehaviour:
   - {fileID: 517785213}
   - {fileID: 903166153}
   - {fileID: 1101420995}
+  _AnimatorLeo: {fileID: 0}
 --- !u!4 &664396061
 Transform:
   m_ObjectHideFlags: 0
@@ -1827,6 +1828,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1771016007682798617}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1300685172 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1771016006398924128, guid: 0884d9853277b8a42a10e87b2e730064,
+    type: 3}
+  m_PrefabInstance: {fileID: 1771016007682798617}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1557272372
 GameObject:
   m_ObjectHideFlags: 0
@@ -2625,6 +2632,16 @@ PrefabInstance:
       propertyPath: GameOverEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1991540393647349868, guid: 0884d9853277b8a42a10e87b2e730064,
+        type: 3}
+      propertyPath: AnimatorLeo
+      value: 
+      objectReference: {fileID: 1300685172}
+    - target: {fileID: 1991540393647349868, guid: 0884d9853277b8a42a10e87b2e730064,
+        type: 3}
+      propertyPath: CrouchSpeedFactor
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7911353582039767087, guid: 0884d9853277b8a42a10e87b2e730064,
         type: 3}
       propertyPath: HighScore
@@ -2633,6 +2650,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7911353582039767087, guid: 0884d9853277b8a42a10e87b2e730064, type: 3}
     - {fileID: 3703200987175698260, guid: 0884d9853277b8a42a10e87b2e730064, type: 3}
+    - {fileID: 1771016006398924129, guid: 0884d9853277b8a42a10e87b2e730064, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0884d9853277b8a42a10e87b2e730064, type: 3}
 --- !u!1001 &2992665474635232911
 PrefabInstance:
