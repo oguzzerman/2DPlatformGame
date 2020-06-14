@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         if (_IsGameStarted)
         {
-            _Speed = 200 + Math.Min(_ScoreManager.GameScore / 20f, 100f);
+            _Speed = 200 + Math.Min(_ScoreManager.GameScore / 5f, 100f);
             CharacterController movement = MainCharacter.GetComponent<CharacterController>();
             movement.HorizontalSpeed = _Speed;
         }
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         {
             if (_IsFirstTime)
             {
-                StartCoroutine(ShowMessage("Press Space to Jump." + Environment.NewLine + "Press Down Arrow to Crouch.", 3));
+                StartCoroutine(ShowMessage("Press Space or Up Arrow to Jump." + Environment.NewLine + "Press Left Shift or Down Arrow to Crouch.", 3));
             }
             else
             {
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
         _IsGameStarted = false;
 
         _AnimatorLeo.SetBool("GameOver", true);
-        StartCoroutine(EndGameOverAnimation(2f));
+        StartCoroutine(EndGameOverAnimation(1f));
 
     }
 
