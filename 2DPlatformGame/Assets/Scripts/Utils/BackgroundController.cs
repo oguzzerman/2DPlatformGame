@@ -24,6 +24,5 @@ public class BackgroundController : MonoBehaviour
         Renderer rend = gameObject.GetComponent<Renderer>();
 
         gameObject.transform.position += Vector3.right * 8 * 3;
-
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
-
     public float Speed;
     public float VerticalMoveSpeed;
     public float VerticalMoveRange;
+
     private float DefaultYPosition;
 
 
@@ -36,6 +36,5 @@ public class EnemyMove : MonoBehaviour
         {
             rigidbody2D.velocity = new Vector2(Speed, VerticalMoveSpeed);
         }
-
     }
 }

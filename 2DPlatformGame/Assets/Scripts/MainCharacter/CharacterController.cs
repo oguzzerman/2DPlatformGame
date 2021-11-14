@@ -16,18 +16,18 @@ public class CharacterController : MonoBehaviour
     public float HorizontalSpeed = 40f;
     public float JumpForce = 600f;
     [Range(0, 1)] public float CrouchSpeedFactor = 1f;
-
-
     public bool IsJumping = false;
+    public UnityEvent GameOverEvent;
+    public bool IsCoroutineExecuting = false;
 
     private bool _Crouch = false;
     private BoxCollider2D _BoxCollider;
     private Rigidbody2D _Rigidbody2D;
-
     private float _ColliderSizeY;
     private eJumpState _CurrentJumpState;
-
-    public UnityEvent GameOverEvent;
+    private Vector2 firstPressPos;
+    private Vector2 secondPressPos;
+    private Vector2 currentSwipe;
 
     private void Awake()
     {
@@ -47,32 +47,9 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckSwipe();
+
         _CurrentJumpState = UpdateJumpsState();
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (_CurrentJumpState == eJumpState.Landed)
-            {
-                _CurrentJumpState = eJumpState.Rising;
-                SoundManager.PlaySound("Jump");
-                IsJumping = true;
-                AnimatorLeo.SetBool("Jumping", true);
-                AnimatorLeo.SetBool("Falling", false);
-
-                Jump();
-            }
-        }
-
-        if (Input.GetButton("Crouch"))
-        {
-            _Crouch = true;
-            _BoxCollider.size = new Vector2(_BoxCollider.size.x, _ColliderSizeY / 2);
-        }
-        else
-        {
-            _Crouch = false;
-            _BoxCollider.size = new Vector2(_BoxCollider.size.x, _ColliderSizeY);
-        }
 
         AnimatorLeo.SetBool("Crouching", _Crouch);
 
@@ -118,6 +95,68 @@ public class CharacterController : MonoBehaviour
         _Rigidbody2D.velocity = new Vector2(speed, _Rigidbody2D.velocity.y);
     }
 
+    public void CheckSwipe()
+    {
+        if (Input.touches.Length > 0)
+        {
+            Touch t = Input.GetTouch(0);
+            if (t.phase == TouchPhase.Began)
+            {
+                //save began touch 2d point
+                firstPressPos = new Vector2(t.position.x, t.position.y);
+            }
+            else if (t.phase == TouchPhase.Ended)
+            {
+                //save ended touch 2d point
+                secondPressPos = new Vector2(t.position.x, t.position.y);
+
+                //create vector from the two points
+                currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+
+                //normalize the 2d vector
+                currentSwipe.Normalize();
+
+                //swipe upwards
+                if (currentSwipe.y > 0)
+                {
+                    if (_CurrentJumpState == eJumpState.Landed)
+                    {
+                        _CurrentJumpState = eJumpState.Rising;
+                        SoundManager.PlaySound("Jump");
+                        IsJumping = true;
+                        AnimatorLeo.SetBool("Jumping", true);
+                        AnimatorLeo.SetBool("Falling", false);
+
+                        Jump();
+                    }
+                }
+                else
+                {
+                    _Crouch = true;
+                    _BoxCollider.size = new Vector2(_BoxCollider.size.x, _ColliderSizeY / 2);
+                    StartCoroutine(GetUp(1f));
+                }
+            }
+        }
+    }
+
+    IEnumerator GetUp(float time)
+    {
+        if (IsCoroutineExecuting)
+        {
+            yield break;
+        }
+
+        IsCoroutineExecuting = true;
+
+        yield return new WaitForSeconds(time);
+
+        _Crouch = false;
+        _BoxCollider.size = new Vector2(_BoxCollider.size.x, _ColliderSizeY);
+
+        IsCoroutineExecuting = false;
+    }
+
     private eJumpState UpdateJumpsState()
     {
         eJumpState ret = eJumpState.Landed;
@@ -130,7 +169,7 @@ public class CharacterController : MonoBehaviour
         {
             ret = eJumpState.Falling;
         }
-        else if (_CurrentJumpState == eJumpState.Falling && Mathf.Abs(_Rigidbody2D.velocity.y ) < 0.0000001)
+        else if (_CurrentJumpState == eJumpState.Falling && Mathf.Abs(_Rigidbody2D.velocity.y) < 0.0000001)
         {
             ret = eJumpState.Landed;
         }

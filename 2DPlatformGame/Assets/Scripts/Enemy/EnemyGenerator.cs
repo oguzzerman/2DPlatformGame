@@ -10,7 +10,6 @@ public class EnemyGenerator : MonoBehaviour
     public GameObject ScoreManagerObject;
     public GameObject LowEagle;
     public GameObject HighEagle;
-
     public GameObject Opossum;
     public bool IsCoroutineExecuting = false;
 
@@ -51,7 +50,6 @@ public class EnemyGenerator : MonoBehaviour
 
         IsCoroutineExecuting = false;
     }
-
 
     private void GenerateRandomEnemies()
     {

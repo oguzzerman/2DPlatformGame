@@ -11,9 +11,9 @@ public class ScoreManager : MonoBehaviour
     private HighScoreController highScoreCont;
 
     public float HighScore;
+    public float StartPosition;
     private float _GameScore;
     private bool _NewHighScore;
-    public float StartPosition;
 
     public float GameScore { get => _GameScore; }
     public bool NewHighScore { get => _NewHighScore; }

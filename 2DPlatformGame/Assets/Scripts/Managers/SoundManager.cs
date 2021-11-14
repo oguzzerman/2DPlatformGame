@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-
     public static AudioClip Jump, GameOver, Crouch, Background;
     private static AudioSource _AudioSource;
 
